@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sakila-svc-api-deployment
+  labels:
+    app: sakila-svc-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sakila-svc-api
+  template:
+    metadata:
+      labels:
+        app: sakila-svc-api
+    spec:
+      containers:
+        - name: sakila-svc-api
+          image: dr00t/sakila-svc-api:jre-9
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PG_APP_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-quarkus-app
+                  key: username
+            - name: PG_APP_DB_PASSWD
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-quarkus-app
+                  key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sakila-svc-api-service
+  labels:
+    app: sakila-svc-api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: sakila-svc-api
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sakila-svc-api-ingress
+  labels:
+    app: sakila-svc-api
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: sakila.127.0.0.1.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sakila-svc-api-service
+                port:
+                  number: 8080
