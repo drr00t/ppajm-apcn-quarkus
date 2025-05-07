@@ -1,6 +1,14 @@
-# ppajm-apcn-quarkus
-Patterns and Practices for Modern Java Architecture: Cloud-Native Enterprise Applications with Quarkus
+# Patterns and Practices for Modern Java Architecture: Cloud-Native Enterprise Applications with Quarkus
 
+source code for the first part of the working progress book 
+[https://leanpub.com/ppajm-apps-corporativas-cloud-native-com-quarkus](https://leanpub.com/ppajm-apps-corporativas-cloud-native-com-quarkus)
+
+
+Capítulo 3: Arquitetura de Aplicação ECB e Inversion Dependency Principle
+Capítulo 4: Organizando Regras de Negócio com Padrões do DDD Tático e Modelo de Domínio
+Capítulo 5: Validação com Result: Sucesso e Falha sem Exceções
+Capítulo 6: Persistência com Repositórios de Negócio usando Panache (Quarkus)
+Capítulo 9: Outbox Pattern com Eventos de Domínio usando Quarkus Outbox
 
 /*
 * Copyright (C) Book Patterns and Practices for Modern Java Architecture adribeiro@gmail.com
